@@ -45,10 +45,5 @@
     },
     "require-dev": {
         "omnipay/tests": "~3.0"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-yasin": "2.0.x-dev"
-        }
     }
 }
