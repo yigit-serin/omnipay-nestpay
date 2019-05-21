@@ -23,7 +23,7 @@
 		"pay",
 		"payment"
 	],
-	"homepage" : "https://github.com/yasinkuyu/omnipay-nestpay",
+	"homepage" : "https://github.com/uskur/omnipay-nestpay",
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "Yasin Kuyu",
@@ -31,6 +31,9 @@
 		}, {
 			"name" : "Omnipay Contributors",
 			"homepage" : "https://github.com/yasinkuyu/omnipay-nestpay/contributors"
+		}, {
+			"name" : "Burak USGURLU",
+			"email" : "burak@uskur.com.tr"
 		}
 	],
 	"autoload" : {
