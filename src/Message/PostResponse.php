@@ -7,14 +7,16 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Exception\InvalidResponseException;
 
 /**
- * NestPay Response
  *
- * (c) Yasin Kuyu
- * 2015, insya.com
- * http://www.github.com/yasinkuyu/omnipay-nestpay
+ * NestPay 3D Pay Hosting Purchase Response
+ *
+ * @author Burak USGURLU <burak@uskur.com.tr>
+ *        
  */
-class Response extends AbstractResponse implements RedirectResponseInterface
+class PostResponse extends AbstractResponse implements RedirectResponseInterface
 {
+
+    protected $request;
 
     /**
      * Constructor
@@ -24,14 +26,9 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      *            / response data
      * @throws InvalidResponseException
      */
-    public function __construct(RequestInterface $request, $data)
+    public function __construct(RequestInterface $request)
     {
         $this->request = $request;
-        try {
-            $this->data = (array) simplexml_load_string($data);
-        } catch (\Exception $ex) {
-            throw new InvalidResponseException();
-        }
     }
 
     /**
@@ -41,11 +38,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      */
     public function isSuccessful()
     {
-        if (isset($this->data["ProcReturnCode"])) {
-            return (string) $this->data["ProcReturnCode"] === '00' || $this->data["Response"] === 'Approved';
-        } else {
-            return false;
-        }
+        return true;
     }
 
     /**
@@ -55,7 +48,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      */
     public function isRedirect()
     {
-        return false; // todo
+        return true;
     }
 
     /**
@@ -85,14 +78,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      */
     public function getMessage()
     {
-        if ($this->isSuccessful()) {
-            $moneyPoints = $this->data["Extra"]->KULLANILABILIRBONUS;
-            if (! empty($moneyPoints))
-                return (string) $this->data["Response"] . '. Available money points : ' . $moneyPoints;
-            else
-                return $this->data["Response"];
-        }
-        return $this->data["ErrMsg"];
+        return false;
     }
 
     /**
@@ -102,7 +88,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      */
     public function getError()
     {
-        return $this->data["ErrMsg"];
+        return false;
     }
 
     /**
@@ -112,12 +98,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      */
     public function getRedirectUrl()
     {
-        if ($this->isRedirect()) {
-            $data = array(
-                'TransId' => $this->data["TransId"]
-            );
-            return $this->getRequest()->getEndpoint() . '/test/index?' . http_build_query($data);
-        }
+        return $this->request->getEndpoint();
     }
 
     /**
@@ -136,7 +117,7 @@ class Response extends AbstractResponse implements RedirectResponseInterface
      * @return null
      */
     public function getRedirectData() {
-        return null;
+        return $this->request->getData();
     }
 
 }

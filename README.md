@@ -2,10 +2,12 @@
 
 **NestPay (EST) (İş Bankası, Akbank, Finansbank, Denizbank, Kuveytturk, Halkbank, Anadolubank, ING Bank, Citibank, Cardplus, Ziraat Bankası sanal pos) gateway for Omnipay payment processing library**
 
-[![Latest Stable Version](https://poser.pugx.org/yasinkuyu/omnipay-nestpay/v/stable)](https://packagist.org/packages/yasinkuyu/omnipay-nestpay) 
-[![Total Downloads](https://poser.pugx.org/yasinkuyu/omnipay-nestpay/downloads)](https://packagist.org/packages/yasinkuyu/omnipay-nestpay) 
-[![Latest Unstable Version](https://poser.pugx.org/yasinkuyu/omnipay-nestpay/v/unstable)](https://packagist.org/packages/yasinkuyu/omnipay-nestpay) 
-[![License](https://poser.pugx.org/yasinkuyu/omnipay-nestpay/license)](https://packagist.org/packages/yasinkuyu/omnipay-nestpay)
+[![Latest Stable Version](https://poser.pugx.org/uskur/omnipay-nestpay/v/stable)](https://packagist.org/packages/uskur/omnipay-nestpay) 
+[![Total Downloads](https://poser.pugx.org/uskur/omnipay-nestpay/downloads)](https://packagist.org/packages/uskur/omnipay-nestpay) 
+[![Latest Unstable Version](https://poser.pugx.org/uskur/omnipay-nestpay/v/unstable)](https://packagist.org/packages/uskur/omnipay-nestpay) 
+[![License](https://poser.pugx.org/uskur/omnipay-nestpay/license)](https://packagist.org/packages/uskur/omnipay-nestpay)
+
+For Omnipay v3.x
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements NestPay (Turkish Payment Gateways) support for Omnipay.
@@ -13,10 +15,12 @@ processing library for PHP 5.3+. This package implements NestPay (Turkish Paymen
 
 NestPay (eski adıyla EST) altyapısını kullanan Türkiye bankaları için Omnipay kütüphanesi. Desteklenmesi hedeflenen bankalar; İş Bankası, Akbank, Finansbank, Denizbank, Kuveytturk, Halkbank, Anadolubank, ING Bank, Citibank, Cardplus, Ziraat Bankası
 
+Supports the API gateway as well as the HTTP Post Gateway methods (3d_pay_hosting, 3d_pay, pay_hosting)
+
 
 ## Installation
 
-    composer require yasinkuyu/omnipay-nestpay:~2.0
+    composer require uskur/omnipay-nestpay:~3.0
 
 ## Basic Usage
 
@@ -44,13 +48,20 @@ Gateway Methods
 * void($options) - generally can only be called up to 24 hours after submitting a transaction
 * credit($options) - money points processed transaction
 * settle($options) - settlement query processed transaction
+* status($options) - returns status message of the transaction
+
+For PostGateway
+
+* authorize($options) - forwards the user via HTTP Post to gateway for a PreAuth
+* purchase($options) - forwards the user via HTTP Post to gateway for an Auth
+* acceptNotification - accepts the result notification from the gateway
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.
 
 ## Unit Tests
 
-PHPUnit is a programmer-oriented testing framework for PHP. It is an instance of the xUnit architecture for unit testing frameworks.
+PHPUnit is a programmer-oriented testing framework for PHP. It is an instance of the xUnit architecture for unit testing frameworks. No 
 
 ## Sample App
             <?php
@@ -85,7 +96,7 @@ PHPUnit is a programmer-oriented testing framework for PHP. It is an instance of
             		//'moneypoints'  => 1.00, // Set money points (Maxi puan gir)
             		'amount'        => 12.00,
             		'type'          => 'Auth',
-            		'orderid'       => 'ORDER-3651233',
+            		'transactionId' => 'ORDER-3651233',
             		'card'          => $options
             	]
             	)->send();
@@ -93,14 +104,14 @@ PHPUnit is a programmer-oriented testing framework for PHP. It is an instance of
             	$response = $gateway->authorize(
             	[
             		'type'          => 'PostAuth',
-            		'orderid'       => 'ORDER-365123',
+            		'transactionId' => 'ORDER-365123',
             		'card'          => $options
             	]
             	)->send();
             
             	$response = $gateway->capture(
             	[
-            		'orderid'       => 'ORDER-365123',
+            		'transactionId' => 'ORDER-365123',
             		'amount'        => 1.00,
             		'currency'      => 'TRY',
             		'card'          => $options
@@ -110,7 +121,7 @@ PHPUnit is a programmer-oriented testing framework for PHP. It is an instance of
             
             	$response = $gateway->refund(
             	[
-            		'orderid'       => 'ORDER-365123',
+            		'transactionId' => 'ORDER-365123',
             		'amount'        => 1.00,
             		'currency'      => 'TRY',
             		'card'          => $options
@@ -119,7 +130,7 @@ PHPUnit is a programmer-oriented testing framework for PHP. It is an instance of
             
             	$response = $gateway->credit(
             	[
-            		'orderid'       => 'ORDER-365123',
+            		'transactionId' => 'ORDER-365123',
             		'amount'        => 1.00,
             		'currency'      => 'TRY', // Optional (default parameter TRY)
             		'card'          => $options
@@ -128,7 +139,7 @@ PHPUnit is a programmer-oriented testing framework for PHP. It is an instance of
             
             	$response = $gateway->void(
             	[
-            		'orderid'       => 'ORDER-365123',
+            		'transactionId' => 'ORDER-365123',
             		'amount'        => 1.00,
             		'currency'      => 'TRY',
             		'card'          => $options
@@ -204,7 +215,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "yasinkuyu/omnipay-nestpay": "~2.0"
+        "uskur/omnipay-nestpay": "~3.0"
     }
 }
 ```
@@ -217,7 +228,7 @@ And run composer to update your dependencies:
 
 ## Support
 
-If you believe you have found a bug, please report it using the [GitHub issue tracker](https://github.com/yasinkuyu/omnipay-nestpay/issues),
+If you believe you have found a bug, please report it using the [GitHub issue tracker](https://github.com/uskur/omnipay-nestpay/issues),
 or better yet, fork the library and submit a pull request.
 
 ## Roadmap

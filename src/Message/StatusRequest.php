@@ -2,19 +2,19 @@
 namespace Omnipay\NestPay\Message;
 
 /**
- * NestPay Void Request
+ * NestPay Purchase Request
  *
  * (c) Yasin Kuyu
  * 2015, insya.com
  * http://www.github.com/yasinkuyu/omnipay-nestpay
  */
-class VoidRequest extends PurchaseRequest
+class StatusRequest extends PurchaseRequest
 {
 
     public function getData()
     {
-        $data['Type'] = 'Void';
         $data['OrderId'] = $this->getTransactionId();
+        $this->setStatus(true);
         
         return $data;
     }

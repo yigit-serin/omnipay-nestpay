@@ -1,24 +1,21 @@
 <?php
-
 namespace Omnipay\NestPay\Message;
 
 /**
  * NestPay Authorize Request
- * 
+ *
  * (c) Yasin Kuyu
  * 2015, insya.com
  * http://www.github.com/yasinkuyu/omnipay-nestpay
  */
-class AuthorizeRequest extends PurchaseRequest {
+class AuthorizeRequest extends PurchaseRequest
+{
 
-    public function getData() {
-
-        $this->validate('orderid');
-
+    public function getData()
+    {
         $data['Type'] = $this->getType();
-        $data['OrderId'] = $this->getOrderId();
-
+        $data['OrderId'] = $this->getTransactionId();
+        
         return $data;
     }
-
 }
