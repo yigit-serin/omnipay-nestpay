@@ -18,7 +18,7 @@ class CaptureRequest extends PurchaseRequest
         
         $data['Type'] = 'PostAuth';
         $data['OrderId'] = $this->getTransactionId();
-        $data['Currency'] = $this->currencies[$currency];
+        $data['Currency'] = $this->getCurrencyNumeric();
         $data['Total'] = $this->getAmount();
         
         return $data;

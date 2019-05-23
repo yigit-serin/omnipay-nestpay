@@ -18,7 +18,7 @@ class RefundRequest extends PurchaseRequest
         
         $data['Type'] = 'Credit';
         $data['OrderId'] = $this->getTransactionId();
-        $data['Currency'] = $this->currencies[$currency];
+        $data['Currency'] = $this->getCurrencyNumeric();
         $data['Total'] = $this->getAmount();
         
         return $data;
