@@ -37,14 +37,14 @@ class PostRequest extends AbstractRequest
             'oid' => $this->getTransactionId(),
             'okUrl' => $this->getReturnUrl(),
             'failUrl' => $this->getReturnUrl(),
-            'callbackUrl' => $this->getNotifyUrl(),
+            'callbackurl' => $this->getNotifyUrl(),
             'rnd' => $this->getRnd(),
             'lang' => $this->getLang(), // en, tr
             'taksit' => $this->getInstallment(),
             'hash' => '',
             'refreshtime' => $this->getRefreshtime()
         ];
-        $plaintext = $data['clientid'] . $data['oid'] . $this->getAmount() . $data['okUrl'] . $data['failUrl'] . $data['islemtipi'] . $data['taksit'] . $data['rnd'] . $data['callbackUrl'] . $this->getStoreKey();
+        $plaintext = $data['clientid'] . $data['oid'] . $this->getAmount() . $data['okUrl'] . $data['failUrl'] . $data['islemtipi'] . $data['taksit'] . $data['rnd'] . $data['callbackurl'] . $this->getStoreKey();
         $data['hash'] = base64_encode(pack('H*', sha1($plaintext)));
         
         $data['Email'] = $this->getCard()->getEmail();
