@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Nestpay\Message;
+namespace Omnipay\NestPay\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
@@ -19,7 +19,7 @@ class CompletePaymentResponse extends AbstractResponse
     }
 
     public function isSuccessful()
-    {   
+    {
         return in_array($this->data['mdStatus'], [1, 2, 3, 4]) && $this->data["Response"] === 'Approved';
     }
 
