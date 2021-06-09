@@ -1,8 +1,10 @@
 <?php
 
-namespace Omnipay\Nestpay\Message;
+namespace Omnipay\NestPay\Message;
 
-class CompletePaymentRequest extends AbstractPayment
+use Omnipay\Common\Message\AbstractRequest;
+
+class CompletePaymentRequest extends AbstractRequest
 {
 
 	public function getData()
