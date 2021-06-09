@@ -79,12 +79,12 @@ class Gateway extends AbstractGateway
     
     public function completePurchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Nestpay\Message\CompletePaymentRequest', $parameters);
+        return $this->createRequest('\Omnipay\NestPay\Message\CompletePaymentRequest', $parameters);
     }
     
     public function completeAuthorize(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Nestpay\Message\CompletePaymentRequest', $parameters);
+        return $this->createRequest('\Omnipay\NestPay\Message\CompletePaymentRequest', $parameters);
     }
 
     public function getBank()
