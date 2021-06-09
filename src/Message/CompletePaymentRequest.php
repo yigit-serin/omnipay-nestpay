@@ -2,9 +2,7 @@
 
 namespace Omnipay\NestPay\Message;
 
-use Omnipay\Common\Message\AbstractRequest;
-
-class CompletePaymentRequest extends AbstractRequest
+class CompletePaymentRequest extends PostRequest
 {
 
 	public function getData()
